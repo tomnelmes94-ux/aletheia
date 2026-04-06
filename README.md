@@ -627,7 +627,7 @@
     Technology for a <em>prosperous,<br>healthy,</em> and equal future.
   </h1>
   <p class="hero-sub">
-    We believe technology — applied safely and with purpose — can lift every person. Aletheia builds intelligence systems that are verified, trustworthy, and built to serve humanity, not exploit it.
+    We believe technology — applied safely and with purpose — can lift all humanity. Aletheia builds intelligence systems that are verified, trustworthy, and built to serve humanity, not exploit it.
   </p>
   <div class="hero-actions">
     <a href="#work" class="btn-primary">Our Work</a>
@@ -645,7 +645,7 @@
       Aletheia means <em>truth</em> — the unconcealedness of reality. We named our company after it because everything we build rests on a single principle: intelligence that cannot be trusted is intelligence that cannot help.
     </p>
     <p class="mission-body">
-      We are building across three domains — behavioral signal intelligence and cybersecurity, AI-powered business tools, and the foundational architecture for verified artificial intelligence. Each is connected by the same philosophy: verified, honest, and built to make the world more equal.
+      We are building across major domains — ASI, behavioral signal intelligence and cybersecurity, AI-powered business tools, and helping humanity using technological advancements. Each is connected by the same philosophy: verified, honest, and built to make the world more equal.
     </p>
   </div>
 </section>
@@ -658,7 +658,7 @@
       <div class="pillar fade-in">
         <div class="pillar-number">01</div>
         <h3>Verified Truth</h3>
-        <p>We do not build systems that simulate understanding and call it knowledge. Every claim our systems make should be traceable to a source that reality itself has confirmed.</p>
+        <p>We do not build systems that simulate understanding and call it knowledge. Every claim our systems make should be traceable to a source that has been verified, explained and confirmed.</p>
       </div>
       <div class="pillar fade-in">
         <div class="pillar-number">02</div>
@@ -687,8 +687,8 @@
   <div class="work-grid">
     <div class="work-item fade-in">
       <span class="work-tag">Available Now</span>
-      <h3>ASGI White Paper</h3>
-      <p>From Simulation to Verification — a philosophical and technical argument for reclassifying current AI systems and defining the path toward genuinely verified machine intelligence.</p>
+      <h3>Advanced LLM's reclassified to ASGI White Paper</h3>
+      <p>Simulation of intelligence, a philosophical and technical argument for reclassifying the best LLM systems.</p>
       <a href="#contact" class="work-link">Request Paper →</a>
     </div>
     <div class="work-item fade-in">
@@ -705,8 +705,8 @@
     </div>
     <div class="work-item fade-in">
       <span class="work-tag coming-soon">Coming Soon</span>
-      <h3>Genesis Intelligence Ledger</h3>
-      <p>The bridge from simulated to verified intelligence. A framework for grounding AI knowledge in physical confirmation — the architecture for genuine AGI.</p>
+      <h3>ASI - Genesis Intelligence Ledger</h3>
+      <p>The bridge from simulated to verified intelligence, the architecture for genuine ASI.</p>
       <span class="work-link-muted">In Development →</span>
     </div>
   </div>
@@ -736,7 +736,7 @@
       </div>
       <div class="commitment">
         <h4>Equal Epistemology</h4>
-        <p>Verified intelligence should not belong only to those who can afford the largest training runs. The ground truth is physical reality — accessible to everyone.</p>
+        <p>Artificial Super ntelligence should not belong only to those who can afford the largest training runs. The grounding truth will be accessible to everyone.</p>
       </div>
     </div>
   </div>
