@@ -4,789 +4,961 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aletheia — Intelligence Grounded in Truth</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0B1628;
-    --navy-mid: #112240;
-    --navy-light: #1A3258;
-    --gold: #C9A84C;
-    --gold-light: #E8C97A;
-    --gold-pale: #F5E6C0;
-    --cream: #F8F5EE;
-    --white: #FFFFFF;
-    --text-muted: #8A9BB5;
-    --border: rgba(201, 168, 76, 0.18);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--navy);
-    color: var(--cream);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    line-height: 1.7;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* ─── HEADER ─── */
-  header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 24px 48px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(11, 22, 40, 0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    color: var(--cream);
-    text-decoration: none;
-    text-transform: uppercase;
-  }
-
-  .logo span {
-    color: var(--gold);
-  }
-
-  nav {
-    display: flex;
-    gap: 40px;
-    align-items: center;
-  }
-
-  nav a {
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  nav a:hover { color: var(--gold-light); }
-
-  .nav-cta {
-    padding: 9px 22px;
-    border: 1px solid var(--gold);
-    color: var(--gold) !important;
-    border-radius: 2px;
-    font-size: 12px !important;
-    letter-spacing: 0.1em;
-    transition: all 0.2s !important;
-  }
-
-  .nav-cta:hover {
-    background: var(--gold) !important;
-    color: var(--navy) !important;
-  }
-
-  /* ─── HERO ─── */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 140px 48px 100px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -200px; right: -200px;
-    width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(201, 168, 76, 0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: -100px; left: -100px;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(26, 50, 88, 0.8) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero-label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 32px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.2s forwards;
-  }
-
-  .hero-headline {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(48px, 8vw, 96px);
-    font-weight: 300;
-    line-height: 1.05;
-    letter-spacing: -0.01em;
-    color: var(--cream);
-    max-width: 900px;
-    margin-bottom: 40px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.4s forwards;
-  }
-
-  .hero-headline em {
-    font-style: italic;
-    color: var(--gold-light);
-  }
-
-  .hero-sub {
-    font-size: 18px;
-    font-weight: 300;
-    color: var(--text-muted);
-    max-width: 580px;
-    line-height: 1.75;
-    margin-bottom: 56px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.6s forwards;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.8s forwards;
-  }
-
-  .btn-primary {
-    padding: 14px 32px;
-    background: var(--gold);
-    color: var(--navy);
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 2px;
-    transition: all 0.2s;
-  }
-
-  .btn-primary:hover {
-    background: var(--gold-light);
-    transform: translateY(-1px);
-  }
-
-  .btn-ghost {
-    padding: 14px 32px;
-    border: 1px solid rgba(201, 168, 76, 0.3);
-    color: var(--cream);
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 2px;
-    transition: all 0.2s;
-  }
-
-  .btn-ghost:hover {
-    border-color: var(--gold);
-    color: var(--gold-light);
-  }
-
-  /* ─── DIVIDER ─── */
-  .gold-line {
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    opacity: 0.3;
-    margin: 0 48px;
-    width: calc(100% - 96px);
-  }
-
-  /* ─── MISSION ─── */
-  .mission {
-    padding: 100px 48px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .section-label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 24px;
-  }
-
-  .mission-statement {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(28px, 4vw, 48px);
-    font-weight: 300;
-    line-height: 1.35;
-    color: var(--cream);
-    max-width: 860px;
-    margin-bottom: 48px;
-  }
-
-  .mission-statement em {
-    font-style: italic;
-    color: var(--gold-light);
-  }
-
-  .mission-body {
-    font-size: 16px;
-    color: var(--text-muted);
-    max-width: 640px;
-    line-height: 1.8;
-  }
-
-  /* ─── PILLARS ─── */
-  .pillars {
-    padding: 80px 48px;
-    background: var(--navy-mid);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .pillars-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .pillars-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2px;
-    margin-top: 56px;
-  }
-
-  .pillar {
-    padding: 48px 40px;
-    background: var(--navy);
-    border: 1px solid var(--border);
-    transition: border-color 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .pillar::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--gold);
-    transform: scaleX(0);
-    transition: transform 0.3s;
-    transform-origin: left;
-  }
-
-  .pillar:hover::before { transform: scaleX(1); }
-  .pillar:hover { border-color: rgba(201, 168, 76, 0.35); }
-
-  .pillar-number {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 48px;
-    font-weight: 300;
-    color: rgba(201, 168, 76, 0.2);
-    line-height: 1;
-    margin-bottom: 20px;
-  }
-
-  .pillar h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
-    font-weight: 400;
-    color: var(--cream);
-    margin-bottom: 14px;
-    letter-spacing: 0.02em;
-  }
-
-  .pillar p {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.75;
-  }
-
-  /* ─── WORK ─── */
-  .work {
-    padding: 100px 48px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .work-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    margin-top: 56px;
-  }
-
-  .work-item {
-    padding: 48px;
-    border: 1px solid var(--border);
-    background: var(--navy-mid);
-    transition: all 0.3s;
-    position: relative;
-  }
-
-  .work-item:hover {
-    background: var(--navy-light);
-    border-color: rgba(201, 168, 76, 0.35);
-  }
-
-  .work-tag {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gold);
-    border: 1px solid rgba(201, 168, 76, 0.3);
-    padding: 4px 10px;
-    border-radius: 2px;
-    margin-bottom: 24px;
-  }
-
-  .work-tag.coming-soon {
-    color: var(--text-muted);
-    border-color: rgba(138, 155, 181, 0.2);
-  }
-
-  .work-item h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-weight: 400;
-    color: var(--cream);
-    margin-bottom: 16px;
-    line-height: 1.2;
-  }
-
-  .work-item p {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.75;
-    margin-bottom: 28px;
-  }
-
-  .work-link {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gold);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: gap 0.2s;
-  }
-
-  .work-link:hover { gap: 14px; }
-
-  .work-link-muted {
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  /* ─── HUMANITARIAN ─── */
-  .humanitarian {
-    padding: 100px 48px;
-    background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy) 100%);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .humanitarian::before {
-    content: '';
-    position: absolute;
-    top: 50%; right: -100px;
-    transform: translateY(-50%);
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(201, 168, 76, 0.05) 0%, transparent 70%);
-  }
-
-  .humanitarian-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-
-  .humanitarian h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(32px, 4vw, 52px);
-    font-weight: 300;
-    line-height: 1.2;
-    color: var(--cream);
-    margin-bottom: 28px;
-  }
-
-  .humanitarian h2 em {
-    font-style: italic;
-    color: var(--gold-light);
-  }
-
-  .humanitarian p {
-    font-size: 15px;
-    color: var(--text-muted);
-    line-height: 1.85;
-    margin-bottom: 20px;
-  }
-
-  .humanitarian-commitments {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .commitment {
-    padding: 24px 28px;
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--gold);
-    background: rgba(11, 22, 40, 0.6);
-  }
-
-  .commitment h4 {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--cream);
-    margin-bottom: 8px;
-    letter-spacing: 0.03em;
-  }
-
-  .commitment p {
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.65;
-    margin-bottom: 0;
-  }
-
-  /* ─── CONTACT ─── */
-  .contact {
-    padding: 100px 48px;
-    max-width: 1100px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .contact h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(36px, 5vw, 64px);
-    font-weight: 300;
-    color: var(--cream);
-    margin-bottom: 20px;
-  }
-
-  .contact h2 em {
-    font-style: italic;
-    color: var(--gold-light);
-  }
-
-  .contact p {
-    font-size: 16px;
-    color: var(--text-muted);
-    max-width: 520px;
-    margin: 0 auto 48px;
-    line-height: 1.8;
-  }
-
-  .contact-email {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
-    font-weight: 400;
-    color: var(--gold-light);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    border-bottom: 1px solid rgba(201, 168, 76, 0.3);
-    padding-bottom: 4px;
-    transition: border-color 0.2s;
-  }
-
-  .contact-email:hover {
-    border-color: var(--gold);
-  }
-
-  /* ─── FOOTER ─── */
-  footer {
-    padding: 48px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .footer-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .footer-logo span { color: var(--gold); }
-
-  .footer-copy {
-    font-size: 12px;
-    color: var(--text-muted);
-    letter-spacing: 0.05em;
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 32px;
-  }
-
-  .footer-links a {
-    font-size: 12px;
-    color: var(--text-muted);
-    text-decoration: none;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-
-  .footer-links a:hover { color: var(--gold-light); }
-
-  /* ─── ANIMATIONS ─── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ─── MOBILE ─── */
-  @media (max-width: 768px) {
-    header { padding: 20px 24px; }
-    nav { display: none; }
-    .hero { padding: 120px 24px 80px; }
-    .mission, .work, .contact { padding: 64px 24px; }
-    .pillars { padding: 64px 24px; }
-    .humanitarian { padding: 64px 24px; }
-    .humanitarian-inner { grid-template-columns: 1fr; gap: 48px; }
-    .work-grid { grid-template-columns: 1fr; }
-    footer { padding: 32px 24px; flex-direction: column; gap: 20px; text-align: center; }
-    .footer-links { display: none; }
-  }
+    --bg: #080c12;
+    --bg-card: #0d1219;
+    --bg-card2: #111820;
+    --border: #1a2235;
+    --border-light: #243045;
+    --text: #d4dae8;
+    --text-dim: #7a8ba8;
+    --text-dimmer: #3d4f6a;
+    --gold: #c8a252;
+    --gold-dim: rgba(200,162,82,0.12);
+    --blue: #4a8ab8;
+    --blue-dim: rgba(74,138,184,0.12);
+    --white: #ffffff;
+    --font-display: 'Georgia','Times New Roman',serif;
+    --font-body: -apple-system,'Helvetica Neue',Arial,sans-serif;
+    --max: 1100px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:var(--font-display);font-weight:normal;}
+  h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1.15;letter-spacing:-0.02em;}
+  h2{font-size:clamp(1.5rem,3vw,2.3rem);line-height:1.2;}
+  h3{font-size:1.1rem;}
+  em{font-style:italic;color:var(--gold);}
+  p{color:var(--text-dim);line-height:1.8;}
+  a{color:inherit;text-decoration:none;}
+  .label{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dimmer);font-family:var(--font-body);}
+  .container{max-width:var(--max);margin:0 auto;padding:0 2rem;}
+  .section{padding:90px 0;}
+  .section--sm{padding:50px 0;}
+  .divider{height:1px;background:var(--border);}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:100;background:rgba(8,12,18,0.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+  .nav-inner{max-width:var(--max);margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px;}
+  .nav-logo{font-family:var(--font-display);font-size:1.1rem;color:var(--white);letter-spacing:.06em;}
+  .nav-logo span{color:var(--gold);}
+  .nav-links{display:flex;gap:2rem;align-items:center;}
+  .nav-links > a{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);transition:color .2s;}
+  .nav-links > a:hover{color:var(--gold);}
+
+  /* DROPDOWN */
+  .nav-dropdown{position:relative;}
+  .nav-dropdown > .dd-trigger{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);cursor:pointer;display:flex;align-items:center;gap:.4rem;background:none;border:none;font-family:var(--font-body);transition:color .2s;padding:0;}
+  .nav-dropdown:hover > .dd-trigger,
+  .nav-dropdown.open > .dd-trigger{color:var(--gold);}
+  .dd-trigger .caret{font-size:.6rem;transition:transform .2s;display:inline-block;}
+  .nav-dropdown.open .dd-trigger .caret{transform:rotate(180deg);}
+  .dd-menu{position:absolute;top:calc(100% + 14px);right:0;min-width:220px;background:var(--bg-card);border:1px solid var(--border-light);box-shadow:0 12px 32px rgba(0,0,0,0.5);opacity:0;visibility:hidden;transform:translateY(-8px);transition:all .18s ease;}
+  .nav-dropdown.open .dd-menu,
+  .nav-dropdown:hover .dd-menu{opacity:1;visibility:visible;transform:translateY(0);}
+  .dd-menu a{display:block;padding:.85rem 1.25rem;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);border-bottom:1px solid var(--border);transition:all .15s;}
+  .dd-menu a:last-child{border-bottom:none;}
+  .dd-menu a:hover{color:var(--gold);background:var(--gold-dim);padding-left:1.5rem;}
+  @media(max-width:600px){
+    .nav-links{gap:1rem;}
+    .dd-menu{right:-1rem;}
+  }
+
+  /* HERO */
+  .hero{padding:110px 0 90px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(200,162,82,0.04) 0%,transparent 70%);pointer-events:none;}
+  .hero-eyebrow{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;}
+  .hero h1{color:var(--white);max-width:780px;margin-bottom:1.25rem;}
+  .hero-tagline{font-size:1rem;color:var(--text);max-width:700px;margin-bottom:1.5rem;padding:1.25rem 1.5rem;border-left:2px solid var(--gold);background:var(--gold-dim);line-height:1.8;}
+  .hero-sub{font-size:.95rem;color:var(--text-dim);max-width:600px;margin-bottom:2.5rem;line-height:1.8;}
+  .btn-group{display:flex;gap:1rem;flex-wrap:wrap;}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.4rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--border-light);color:var(--text-dim);transition:all .2s;cursor:pointer;background:transparent;}
+  .btn:hover{border-color:var(--gold);color:var(--white);}
+  .btn--primary{border-color:var(--gold);color:var(--gold);}
+  .btn--primary:hover{background:var(--gold);color:var(--bg);}
+
+  /* FEATURED PROGRAMMES */
+  .featured{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:70px;}
+  @media(max-width:700px){.featured{grid-template-columns:1fr;}}
+  .feat-card{background:var(--bg-card);padding:2.5rem;border-bottom:2px solid transparent;transition:border-color .3s;cursor:pointer;}
+  .feat-card:hover{border-bottom-color:var(--gold);}
+  .feat-card--blue:hover{border-bottom-color:var(--blue);}
+  .feat-card .label{color:var(--gold);margin-bottom:.5rem;display:block;}
+  .feat-card--blue .label{color:var(--blue);}
+  .feat-card h3{font-family:var(--font-display);font-size:1.35rem;color:var(--white);margin-bottom:.75rem;}
+  .feat-card p{font-size:.88rem;color:var(--text-dim);}
+  .feat-card .feat-link{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-top:1rem;display:block;}
+  .feat-card--blue .feat-link{color:var(--blue);}
+
+  /* PRINCIPLES */
+  .principles{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+  @media(max-width:900px){.principles{grid-template-columns:1fr 1fr;}}
+  @media(max-width:480px){.principles{grid-template-columns:1fr;}}
+  .principle{background:var(--bg-card);padding:2rem;}
+  .principle-num{font-size:.62rem;letter-spacing:.18em;color:var(--gold);margin-bottom:1rem;}
+  .principle h3{font-size:.95rem;color:var(--white);margin-bottom:.7rem;font-family:var(--font-body);font-weight:600;}
+  .principle p{font-size:.83rem;}
+
+  /* WORK GRID */
+  .work-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+  @media(max-width:600px){.work-grid{grid-template-columns:1fr;}}
+  .work-card{background:var(--bg-card);padding:2rem;border-left:2px solid transparent;transition:border-color .2s;}
+  .work-card:hover{border-left-color:var(--gold);}
+  .work-status{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.7rem;}
+  .work-status--dev{color:var(--text-dimmer);}
+  .work-card h3{font-size:.95rem;color:var(--white);margin-bottom:.7rem;font-family:var(--font-body);font-weight:600;}
+  .work-card p{font-size:.83rem;margin-bottom:.9rem;}
+  .work-card a{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dimmer);transition:color .2s;}
+  .work-card a:hover{color:var(--gold);}
+
+  /* PURPOSE */
+  .purpose-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:2.5rem;}
+  @media(max-width:600px){.purpose-grid{grid-template-columns:1fr;}}
+  .purpose-card{background:var(--bg-card);padding:2rem;}
+  .purpose-card h4{color:var(--white);margin-bottom:.7rem;font-size:.88rem;font-weight:600;}
+  .purpose-card p{font-size:.83rem;}
+
+  /* SECTION HEADER */
+  .section-header{margin-bottom:2.5rem;}
+  .section-header .label{display:block;margin-bottom:1rem;}
+  .section-header h2{color:var(--white);}
+  .section-header p{margin-top:.9rem;max-width:580px;font-size:.92rem;}
+
+  /* STAT CARDS */
+  .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin:2.5rem 0;}
+  @media(max-width:900px){.stats-row{grid-template-columns:1fr 1fr;}}
+  @media(max-width:460px){.stats-row{grid-template-columns:1fr;}}
+  .stat-card{background:var(--bg-card);padding:2rem 1.5rem;border-top:2px solid var(--border);}
+  .stat-num{font-family:var(--font-display);font-size:2.1rem;color:var(--white);line-height:1.1;margin-bottom:.4rem;}
+  .stat-label{font-size:.78rem;color:var(--text-dim);line-height:1.5;}
+  .stat-note{font-size:.66rem;color:var(--text-dimmer);margin-top:.4rem;}
+
+  /* COMPARE TABLE */
+  .tbl-wrap{overflow-x:auto;}
+  .compare-table{width:100%;border-collapse:collapse;margin:1.5rem 0;}
+  .compare-table th{background:var(--bg-card2);padding:.9rem 1.1rem;text-align:left;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);font-family:var(--font-body);font-weight:600;border-bottom:1px solid var(--border);}
+  .compare-table th.hl{color:var(--gold);}
+  .compare-table td{padding:.8rem 1.1rem;font-size:.82rem;color:var(--text-dim);border-bottom:1px solid var(--border);vertical-align:middle;}
+  .compare-table td:first-child{color:var(--text-dimmer);font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;}
+  .compare-table td.hl{color:var(--white);font-weight:500;}
+  .compare-table td.good{color:#6eb87e;}
+  .compare-table td.bad{color:var(--text-dimmer);}
+  .compare-table tr:last-child td{border-bottom:none;}
+
+  /* NODE CARDS */
+  .node-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin:2rem 0;}
+  @media(max-width:680px){.node-grid{grid-template-columns:1fr;}}
+  .node-card{background:var(--bg-card);padding:2.5rem;}
+  .node-name{font-family:var(--font-display);font-size:1.5rem;color:var(--white);margin-bottom:.2rem;}
+  .node-sub{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;}
+  .node-card--blue .node-sub{color:var(--blue);}
+  .node-stat{display:flex;justify-content:space-between;align-items:baseline;padding:.55rem 0;border-bottom:1px solid var(--border);}
+  .node-stat:last-child{border-bottom:none;}
+  .node-stat-label{font-size:.7rem;color:var(--text-dimmer);text-transform:uppercase;letter-spacing:.06em;}
+  .node-stat-value{font-size:.85rem;color:var(--text);font-weight:500;}
+
+  /* PAGE HERO */
+  .page-hero{padding:80px 0 60px;border-bottom:1px solid var(--border);}
+  .page-hero .label{display:block;margin-bottom:1rem;}
+  .page-hero h1{color:var(--white);max-width:700px;margin-bottom:1.4rem;}
+  .page-hero p{max-width:580px;font-size:.97rem;}
+
+  /* PROSE */
+  .prose p{font-size:.93rem;margin-bottom:1.2rem;max-width:680px;}
+  .prose h3{color:var(--white);font-family:var(--font-display);font-size:1.25rem;margin:2.5rem 0 .9rem;}
+  .prose .pullquote{border-left:2px solid var(--gold);padding-left:1.5rem;margin:2rem 0;font-size:.97rem;color:var(--text);font-family:var(--font-display);font-style:italic;line-height:1.6;}
+
+  /* ABOUT STRUCTURE */
+  .structure-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:2rem 0;}
+  @media(max-width:680px){.structure-grid{grid-template-columns:1fr;}}
+  .structure-card{background:var(--bg-card);padding:2rem;}
+  .s-entity{font-family:var(--font-display);font-size:1.05rem;color:var(--white);margin-bottom:.2rem;}
+  .s-juris{font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;}
+  .structure-card p{font-size:.82rem;}
+
+  /* LAYER STACK */
+  .layer-stack{margin:2rem 0;}
+  .layer{display:flex;gap:1.5rem;padding:1.2rem;background:var(--bg-card);margin-bottom:2px;}
+  .layer-num{font-family:var(--font-display);font-size:1.3rem;color:var(--border-light);flex-shrink:0;width:2rem;text-align:center;padding-top:.1rem;}
+  .layer-body h4{color:var(--white);font-family:var(--font-body);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;margin-bottom:.35rem;}
+  .layer-body p{font-size:.8rem;}
+  .layer--active{border-left:2px solid var(--gold);}
+  .layer--active .layer-num{color:var(--gold);}
+
+  /* CONTACT */
+  .contact-section{padding:80px 0;}
+  .contact-section h2{color:var(--white);margin-bottom:1rem;}
+  .contact-section .contact-pre{font-size:.88rem;color:var(--text-dim);margin-bottom:1rem;max-width:560px;}
+  .contact-section p{margin-bottom:1.2rem;max-width:500px;}
+  .contact-email{font-family:var(--font-display);font-size:1.05rem;color:var(--gold);}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--border);padding:1.75rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+  footer p{font-size:.7rem;color:var(--text-dimmer);}
+  footer nav a{font-size:.7rem;color:var(--text-dimmer);margin-left:1.5rem;}
+  footer nav a:hover{color:var(--text);}
+
+  /* DOR SPECIFIC */
+  .dor-hero-stat{background:linear-gradient(135deg,rgba(74,138,184,0.08),rgba(200,162,82,0.04));border:1px solid var(--border-light);padding:2rem;margin:2rem 0;}
+  .dor-hero-stat .big{font-family:var(--font-display);font-size:3rem;color:var(--white);line-height:1;}
+  .dor-hero-stat .big span{color:var(--gold);}
+  .dor-hero-stat p{font-size:.88rem;margin-top:.5rem;}
+
+  /* PAGE VIS */
+  .page{display:none;}
+  .page.active{display:block;}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <a href="#" class="logo">Aletheia<span>FI</span></a>
-  <nav>
-    <a href="#mission">Mission</a>
-    <a href="#work">Work</a>
-    <a href="#humanitarian">Purpose</a>
-    <a href="#contact" class="nav-cta">Contact</a>
-  </nav>
-</header>
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" onclick="showPage('home')">Aletheia<span>.</span></a>
+    <div class="nav-links">
+      <a href="#" onclick="showPage('home')">Home</a>
+      <div class="nav-dropdown" id="navDropdown">
+        <button class="dd-trigger" onclick="toggleDropdown(event)">Programmes <span class="caret">▾</span></button>
+        <div class="dd-menu">
+          <a href="#" onclick="showPage('aether')">Aether — Free Energy</a>
+          <a href="#" onclick="showPage('dor')">Carbon Removal</a>
+          <a href="#" onclick="showPage('ai')">AI — Lucy &amp; GIL</a>
+          <a href="#" onclick="showPage('datacenters')">Data Centres</a>
+          <a href="#" onclick="showPage('issues')">Global Issues</a>
+          <a href="#" onclick="showPage('about')">About</a>
+          <a href="#" onclick="scrollContact()">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
 
-<!-- HERO -->
+<!-- ══════════════════════════════════════════ HOME ══ -->
+<div id="page-home" class="page active">
 <section class="hero">
-  <div class="hero-label">Intelligence Grounded in Truth</div>
-  <h1 class="hero-headline">
-    Technology for a <em>prosperous,<br>healthy,</em> and equal future.
-  </h1>
-  <p class="hero-sub">
-    We believe technology — applied safely and with purpose — can lift all humanity. Aletheia builds intelligence systems that are verified, trustworthy, and built to serve humanity, not exploit it.
-  </p>
-  <div class="hero-actions">
-    <a href="#work" class="btn-primary">Our Work</a>
-    <a href="#contact" class="btn-ghost">Get in Touch</a>
-  </div>
-</section>
+  <div class="container">
+    <div class="hero-eyebrow">Intelligence Grounded in Truth</div>
+    <h1>Technology for a <em>prosperous, healthy,</em> and equal future.</h1>
+    <div class="hero-tagline">
+      We are an intelligence company. We use machine intelligence, human expertise, and humanity's existing knowledge to solve the world's most fundamental problems — and give the solutions away. We have no shareholders. No investors. Our only stakeholder is humanity and the planet we all share. We are citizens of the world before we are citizens of any nation — <em>kosmopolitês</em>, in the old sense.
+    </div>
+    <p class="hero-sub">Aletheia builds intelligence systems and physical technology that are verified, trustworthy, and built to serve humanity — not exploit it.</p>
+    <div class="btn-group">
+      <a class="btn btn--primary" href="#" onclick="showPage('aether')">Free Energy Programme →</a>
+      <a class="btn" href="#" onclick="showPage('dor')">Carbon Removal →</a>
+      <a class="btn" href="#" onclick="showPage('ai')">AI Programme →</a>
+    </div>
 
-<div class="gold-line"></div>
-
-<!-- MISSION -->
-<section class="mission" id="mission">
-  <div class="fade-in">
-    <div class="section-label">Our Foundation</div>
-    <p class="mission-statement">
-      Aletheia means <em>truth</em> — shining the light on reality. We named our company after it because everything we build rests on a single principle: intelligence that cannot be trusted is intelligence that cannot help.
-    </p>
-    <p class="mission-body">
-      We are building across major domains — ASI, behavioral signal intelligence, AI-powered business tools, and helping humanity using technological advancements. Each is connected by the same philosophy: verified, honest, and built to make the world more equal.
-    </p>
-  </div>
-</section>
-
-<!-- PILLARS -->
-<section class="pillars">
-  <div class="pillars-inner">
-    <div class="section-label fade-in">What We Stand On</div>
-    <div class="pillars-grid">
-      <div class="pillar fade-in">
-        <div class="pillar-number">01</div>
-        <h3>Verified Truth</h3>
-        <p>We do not build systems that simulate understanding and call it knowledge. Every claim our systems make should be traceable to a source, to truly know.</p>
+    <div class="featured">
+      <div class="feat-card" onclick="showPage('aether')">
+        <span class="label">Aether Programme</span>
+        <h3>Free unlimited energy for every person on earth.</h3>
+        <p>Airborne nodes. No ground infrastructure required. Carbon removed. Power delivered free. The carbon markets pay for it. Over half the world receives it at zero cost — forever.</p>
+        <a class="feat-link" href="#" onclick="showPage('aether')">Explore Aether →</a>
       </div>
-      <div class="pillar fade-in">
-        <div class="pillar-number">02</div>
-        <h3>Safety by Design</h3>
-        <p>Safety is not a feature added at the end. It is the architecture. We refuse applications we believe cause harm — regardless of what they pay.</p>
-      </div>
-      <div class="pillar fade-in">
-        <div class="pillar-number">03</div>
-        <h3>Equal Access</h3>
-        <p>The most powerful tools in existence should not belong only to those who can afford them. Humanitarian organizations will always have access to our technology at no cost.</p>
-      </div>
-      <div class="pillar fade-in">
-        <div class="pillar-number">04</div>
-        <h3>Transparent Intent</h3>
-        <p>We say what we are building and why. We do not use language designed to obscure our direction from those who fund us or those who depend on us.</p>
+      <div class="feat-card feat-card--blue" onclick="showPage('ai')">
+        <span class="label">AI Programme — Lucy &amp; GIL</span>
+        <h3>From inherited simulation to verified intelligence.</h3>
+        <p>The Genesis Intelligence Layer — the world's first architecture for physically confirmed AI knowledge. The base layer of verified facts, freely downloadable to anyone on earth.</p>
+        <a class="feat-link" href="#" onclick="showPage('ai')">Explore AI Programme →</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WORK -->
-<section class="work" id="work">
-  <div class="fade-in">
-    <div class="section-label">Our Work</div>
-  </div>
-  <div class="work-grid">
-    <div class="work-item fade-in">
-      <span class="work-tag">Available Now</span>
-      <h3>ASGI White Paper</h3>
-      <p>Simulation of intelligence — A philosophical and technical argument for reclassifying the frontier LLM systems to ASGI.</p>
-      <a href="#contact" class="work-link">Request Paper →</a>
+<section class="section" id="mission">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Our Foundation</span>
+      <h2>What <em>everything</em> we build rests on.</h2>
+      <p>Aletheia means truth — shining light on reality. We named our company after it because intelligence that cannot be trusted is intelligence that cannot help.</p>
     </div>
-    <div class="work-item fade-in">
-      <span class="work-tag coming-soon">Coming Soon</span>
-      <h3>Aletheia Fusion Intelligence</h3>
-      <p>Behavioral detection and signal intelligence platform. On-premises, oracle-only architecture. Turns behavioral signal noise into verified incident intelligence for enterprise and law enforcement.</p>
-      <span class="work-link-muted">In Development →</span>
-    </div>
-    <div class="work-item fade-in">
-      <span class="work-tag coming-soon">Coming Soon</span>
-      <h3>Sparta Business Suite</h3>
-      <p>An AI-native business operating system. Your company's CFO, COO, accountant, project manager, and HR — in one proactive intelligence layer built for founders and enterprises alike.</p>
-      <span class="work-link-muted">In Development →</span>
-    </div>
-    <div class="work-item fade-in">
-      <span class="work-tag coming-soon">Coming Soon</span>
-      <h3>Genesis Intelligence Ledger</h3>
-      <p>Our ASI/AGI program, philosophy, epistemology, alignment, engineering and commercial deployment - the architecture for genuine AGI and ASI.</p>
-      <span class="work-link-muted">In Development →</span>
+    <div class="principles">
+      <div class="principle"><div class="principle-num">01</div><h3>Verified Truth</h3><p>We do not build systems that simulate understanding and call it knowledge. Every claim our systems make should be traceable to a source.</p></div>
+      <div class="principle"><div class="principle-num">02</div><h3>Safety by Design</h3><p>Safety is not a feature added at the end. It is the architecture. We refuse applications we believe cause harm — regardless of what they pay.</p></div>
+      <div class="principle"><div class="principle-num">03</div><h3>Equal Access</h3><p>The most powerful tools in existence should not belong only to those who can afford them. Humanitarian organisations have access at no cost.</p></div>
+      <div class="principle"><div class="principle-num">04</div><h3>Transparent Intent</h3><p>We say what we are building and why. We do not use language designed to obscure our direction from those who fund us or depend on us.</p></div>
     </div>
   </div>
 </section>
 
-<!-- HUMANITARIAN -->
-<section class="humanitarian" id="humanitarian">
-  <div class="humanitarian-inner">
-    <div class="fade-in">
-      <div class="section-label">Our Purpose</div>
-      <h2>Built to <em>protect</em><br>the most vulnerable.</h2>
-      <p>Every commercial product we build subsidizes free access for the organizations that need these tools most. This is not a pledge. It is written into how we operate.</p>
-      <p>All programs we create can be deployed by law enforcement and prosecutors to combat digital sexual exploitation of children and adults. Our signal intelligence and fusion incident architecture exist, in part, for exactly this purpose.</p>
+<div class="divider"></div>
+
+<section class="section" id="work">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Our Work</span>
+      <h2>Three programmes. <em>One</em> mission.</h2>
     </div>
-    <div class="humanitarian-commitments fade-in">
-      <div class="commitment">
-        <h4>Child Protection</h4>
-        <p>Free access to all Aletheia tools for organizations working to combat child exploitation and trafficking. No cost. No conditions.</p>
+    <div class="work-grid">
+      <div class="work-card">
+        <div class="work-status">In Development</div>
+        <h3>Aether — Free Energy &amp; Carbon Removal</h3>
+        <p>Airborne wind energy nodes producing gigawatts at altitude. Direct ocean carbon removal at scale. Free unlimited energy globally. The carbon credit market funds it all.</p>
+        <a href="#" onclick="showPage('aether')">Explore Aether →</a>
       </div>
-      <div class="commitment">
-        <h4>Law Enforcement Support</h4>
-        <p>Our Fusion Incident Intelligence and Phoenix Signal Network are designed to help investigators identify and prosecute perpetrators of digital exploitation.</p>
+      <div class="work-card">
+        <div class="work-status">In Development</div>
+        <h3>Lucy &amp; Genesis Intelligence Layer</h3>
+        <p>Machine intelligence programme and the architecture for physically verified AI. The world's first open, verifiable knowledge layer — freely available to all. Licensed to LLMs for verified responses.</p>
+        <a href="#" onclick="showPage('ai')">Explore AI Programme →</a>
       </div>
-      <div class="commitment">
-        <h4>Humanitarian Research</h4>
-        <p>Non-profit scientific research institutions and humanitarian medical operations receive access to our intelligence infrastructure at no cost.</p>
+      <div class="work-card">
+        <div class="work-status work-status--dev">In Development</div>
+        <h3>Aletheia Fusion Intelligence</h3>
+        <p>Behavioural detection and signal intelligence protecting our own nodes and AI systems, enterprises, and law enforcement. Turns signal noise into verified incident intelligence. On-premises, oracle-only architecture.</p>
+        <a href="#">In Development →</a>
       </div>
-      <div class="commitment">
-        <h4>Equal Epistemology</h4>
-        <p>Verified intelligence should not belong only to those who can afford the largest training runs. The ground truth is physical reality — accessible to everyone.</p>
+      <div class="work-card">
+        <div class="work-status">Available Now</div>
+        <h3>ASGI White Paper</h3>
+        <p>Simulation of intelligence — a philosophical and technical argument for reclassifying frontier LLM systems as Artificial Simulated General Intelligence. The case for why the gap matters.</p>
+        <a href="#" onclick="scrollContact()">Request Paper →</a>
+      </div>
+      <div class="work-card">
+        <div class="work-status work-status--dev">In Development</div>
+        <h3>Offshore Data Infrastructure</h3>
+        <p>The Universal Modular Unit reconfigured as a sealed offshore data centre — eliminating power, noise, water, and land impact entirely. Powered by Aether.</p>
+        <a href="#" onclick="showPage('datacenters')">Explore Data Centres →</a>
+      </div>
+      <div class="work-card">
+        <div class="work-status">Overview</div>
+        <h3>Global Issues — One Architecture</h3>
+        <p>Seven of the world's hardest problems, and the single architecture behind every one of our answers to them.</p>
+        <a href="#" onclick="showPage('issues')">See Global Issues →</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section class="contact" id="contact">
-  <div class="fade-in">
-    <div class="section-label">Get In Touch</div>
+<div class="divider"></div>
+
+<section class="section" id="humanitarian">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Our Purpose</span>
+      <h2>Built to <em>protect</em> the most vulnerable.</h2>
+      <p>Every commercial product we build subsidises free access for the organisations that need these tools most. This is not a pledge. It is written into how we operate.</p>
+    </div>
+    <div class="purpose-grid">
+      <div class="purpose-card"><h4>Child Protection</h4><p>Free access to all Aletheia tools for organisations working to combat child exploitation and trafficking. No cost. No conditions.</p></div>
+      <div class="purpose-card"><h4>Law Enforcement Support</h4><p>Our Fusion Incident Intelligence is designed to help investigators identify and prosecute perpetrators of digital exploitation.</p></div>
+      <div class="purpose-card"><h4>Humanitarian Research</h4><p>Non-profit scientific research institutions and humanitarian medical operations receive access to our intelligence infrastructure at no cost.</p></div>
+      <div class="purpose-card"><h4>Equal Epistemology</h4><p>Verified intelligence should not belong only to those who can afford the largest training runs. The ground truth is physical reality — accessible to everyone.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="contact-section" id="contact">
+  <div class="container">
     <h2>Let's build something <em>true.</em></h2>
-    <p>We are open to partnerships, research collaborations, and conversations with organizations who share our belief that intelligence should be verified, safe, and equal.</p>
+    <p class="contact-pre">The Founder of this mission is personally dedicated to finding the right partners to advance it. Reach out directly — there is no layer between your message and the person building this.</p>
+    <p>Open to partnerships, research collaborations, platform conversations, and anyone who believes that the tools which determine the quality of human life should not be rationed by ability to pay.</p>
     <a href="mailto:tom@aletheiafi.com" class="contact-email">tom@aletheiafi.com</a>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Aletheia<span>FI</span></div>
-  <div class="footer-copy">© 2026 AletheiaFI LLC. All rights reserved.</div>
-  <div class="footer-links">
-    <a href="#mission">Mission</a>
-    <a href="#work">Work</a>
-    <a href="#humanitarian">Purpose</a>
-    <a href="#contact">Contact</a>
-  </div>
+  <p>© 2026 Aletheia. All rights reserved. No shareholders. No investors. Humanity only.</p>
+  <nav>
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('aether')">Aether</a>
+    <a href="#" onclick="showPage('dor')">Carbon Removal</a>
+    <a href="#" onclick="showPage('ai')">AI</a>
+    <a href="#" onclick="showPage('about')">About</a>
+  </nav>
 </footer>
+</div>
+
+<!-- ══════════════════════════════════════════ AETHER ══ -->
+<div id="page-aether" class="page">
+<section class="page-hero">
+  <div class="container">
+    <span class="label" style="color:var(--gold)">Aether Programme</span>
+    <h1>Free unlimited energy for every person on earth.</h1>
+    <p>Not cheaper. Not cleaner. <em>Free.</em> The energy is always free. AletheiaFI charges no one for electricity — ever. The carbon markets pay for it.</p>
+  </div>
+</section>
+
+<section class="section--sm">
+  <div class="container">
+    <div class="prose">
+      <p>Free energy means free water — every desalination plant running around the clock at zero marginal cost. It means fusion research powered at no charge, medical equipment and scientific instruments powered without a bill, educational infrastructure in communities that have never had reliable power.</p>
+      <p>For nations above PPP GDP $30,000 per capita, governments — not households — pay a small annual connection fee until the carbon credit market is large enough to cover everything. Over half the world, every nation below that threshold, receives free energy, free water, and free infrastructure with no fee of any kind. Always.</p>
+      <p>Power is transmitted via microwave Wireless Power Transmission — the same physics that charges your phone and powers devices in your car today, scaled up and refined for long-distance delivery from altitude to ground receivers. Confirmed at 67.5% efficiency. Our target is 75–85%. No cables. No pylons. Power arrives from above.</p>
+      <p style="font-size:.8rem;color:var(--text-dimmer)">Our AWES architecture has a smaller footprint than the only AWES system to have completed a successful sustained power generation test to date. What we have built is more compact, more powerful, and self-launching.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">The Nodes</span>
+      <h2>Two nodes. <em>Infinite</em> applications.</h2>
+      <p>Every node is manufactured from graphene composite — the strongest structural material ever measured (Lee et al. 2008, Science). Every node self-launches on hydrogen buoyancy. No crane. No launch vehicle. No infrastructure required.</p>
+    </div>
+    <div class="node-grid">
+      <div class="node-card">
+        <div class="node-name">Bullet</div>
+        <div class="node-sub">AWES Power Node</div>
+        <div class="node-stat"><span class="node-stat-label">Footprint</span><span class="node-stat-value">25m × 25m × 60m</span></div>
+        <div class="node-stat"><span class="node-stat-label">Operating altitude</span><span class="node-stat-value">3,000m</span></div>
+        <div class="node-stat"><span class="node-stat-label">Power output</span><span class="node-stat-value">1,466 MW (conservative)</span></div>
+        <div class="node-stat"><span class="node-stat-label">Total mass</span><span class="node-stat-value">22.1 tonnes</span></div>
+        <div class="node-stat"><span class="node-stat-label">Sea-level launch margin</span><span class="node-stat-value">+4.6 tonnes — self-launches</span></div>
+        <div class="node-stat"><span class="node-stat-label">All UK electricity</span><span class="node-stat-value">25 Bullet nodes</span></div>
+        <div class="node-stat"><span class="node-stat-label">All global electricity</span><span class="node-stat-value">2,412 Bullet nodes</span></div>
+        <div class="node-stat"><span class="node-stat-label">Cost to any user</span><span class="node-stat-value" style="color:#6eb87e">£0</span></div>
+      </div>
+      <div class="node-card node-card--blue">
+        <div class="node-name" style="color:var(--blue)">Gaia</div>
+        <div class="node-sub">Ocean Power &amp; DOR Support Node</div>
+        <div class="node-stat"><span class="node-stat-label">Footprint</span><span class="node-stat-value">40m × 40m × 110m</span></div>
+        <div class="node-stat"><span class="node-stat-label">Operating altitude</span><span class="node-stat-value">100–1,000m (ocean)</span></div>
+        <div class="node-stat"><span class="node-stat-label">Power output</span><span class="node-stat-value">7,494 MW (conservative)</span></div>
+        <div class="node-stat"><span class="node-stat-label">Total mass</span><span class="node-stat-value">91.9 tonnes</span></div>
+        <div class="node-stat"><span class="node-stat-label">Sea-level launch margin</span><span class="node-stat-value">+37 tonnes — self-launches</span></div>
+        <div class="node-stat"><span class="node-stat-label">DOR power role</span><span class="node-stat-value">Powers DOR via HVDC tether</span></div>
+        <div class="node-stat"><span class="node-stat-label">All global electricity</span><span class="node-stat-value">472 Gaia nodes</span></div>
+        <div class="node-stat"><span class="node-stat-label">Cost to any user</span><span class="node-stat-value" style="color:#6eb87e">£0</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem">
+      <div class="section-header">
+        <span class="label">Also in the Programme</span>
+        <h2>The <em>Modular Wind Turbine</em> — fastest to market.</h2>
+      </div>
+      <div class="prose">
+        <p>The ACMWT Aether Custom Modular Wind Turbine applies the same convergent duct physics as the AWES node in a ground-based modular tower. 43.2 kW per unit at 9 m/s wind. Stacks modularly to 152m height. 15.8 MW per Large tower configuration. No rare earth elements. Integrated direct air capture removes CO₂ directly from the atmosphere in three zones: foundation block, pole annulus, and exhaust face panels.</p>
+        <p>The turbine is the fastest product to market — manufactured from the same graphene composite, at the same facility, before the first AWES node flies. It proves the manufacturing process, generates early revenue, and begins deploying clean power immediately. First to produce. First to remove carbon. First to fund the mission.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem">
+      <div class="section-header">
+        <span class="label">One Architecture, Infinite Roles</span>
+        <h2>The same shell. <em>Reconfigured.</em></h2>
+      </div>
+      <div class="prose">
+        <p>The Bullet and Gaia are not single-purpose machines. They are the Universal Modular Unit — one graphene composite shell, one manufacturing process, configured for the role required. The same Bullet shell that generates power above the ocean becomes a sealed electrochemical reactor for <a href="#" onclick="showPage('dor')" style="color:var(--blue);text-decoration:underline">direct ocean carbon removal</a> when reconfigured internally. The same architecture, fitted with a different interior, becomes a sealed environmental enclosure for <a href="#" onclick="showPage('datacenters')" style="color:var(--blue);text-decoration:underline">offshore data centres</a>. One mould. One mission. Many forms.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem">
+      <div class="section-header">
+        <span class="label">The Hydrogen Economy</span>
+        <h2>Toward <em>under $1 a gallon.</em></h2>
+      </div>
+      <div class="prose">
+        <p>Free, unlimited power changes the economics of hydrogen production fundamentally. Electrolysis cost is overwhelmingly an electricity cost — remove that cost and the price of hydrogen falls toward the cost of water and infrastructure alone. Aletheia's role is the free energy input. The hydrogen plants themselves may be owned and operated by others — ours, partners', or entirely independent producers drawing on the free power.</p>
+        <p>Our goal is a genuine hydrogen economy with a price point under $1 per gallon equivalent — driven down by the same free energy that powers homes and removes carbon. Each node also produces hydrogen onboard as part of its own buoyancy and propulsion systems, directly useful for forward operating bases and emergency services requiring on-site supply. But the larger opportunity is the economy this unlocks for everyone else. We intend to partner with as many mission-aligned companies as possible — organisations that take the savings from free power and do remarkable things with their own profits, in their own right. Diversification, in service of the same direction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">The Scale</span>
+      <h2>One Bullet node vs <em>the world.</em></h2>
+    </div>
+    <div class="tbl-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr><th></th><th class="hl">Bullet Node</th><th>15MW Wind Turbine</th><th>1GW Coal Plant</th><th>1GW Nuclear</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Power output</td><td class="hl">1,466 MW</td><td class="bad">15 MW</td><td class="bad">1,000 MW</td><td class="bad">1,000 MW</td></tr>
+          <tr><td>Equivalent to</td><td class="hl">98× the largest wind turbine</td><td class="bad">—</td><td class="bad">—</td><td class="bad">—</td></tr>
+          <tr><td>Footprint</td><td class="hl">25m × 25m × 60m</td><td class="bad">220m rotor + large foundation</td><td class="bad">Entire fixed facility</td><td class="bad">Entire fixed facility</td></tr>
+          <tr><td>Ground infrastructure</td><td class="good">None required</td><td class="bad">Cables, substation, roads</td><td class="bad">Full grid connection</td><td class="bad">Grid, cooling, exclusion zone</td></tr>
+          <tr><td>Cost to end user</td><td class="good">£0</td><td class="bad">Market rate</td><td class="bad">Market rate</td><td class="bad">Market rate</td></tr>
+          <tr><td>Carbon removed</td><td class="good">Yes — millions of tonnes/year</td><td class="bad">No</td><td class="bad">Adds carbon</td><td class="bad">No</td></tr>
+          <tr><td>Self-launching</td><td class="good">Yes — no launch vehicle</td><td class="bad">No</td><td class="bad">No</td><td class="bad">No</td></tr>
+          <tr><td>Deployable anywhere</td><td class="good">Yes — ocean, land, anywhere</td><td class="bad">Fixed location</td><td class="bad">Fixed</td><td class="bad">Fixed</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num">25</div><div class="stat-label">Bullet nodes supply all UK electricity (319 TWh/yr)</div><div class="stat-note">DUKES 2025, DESNZ</div></div>
+      <div class="stat-card"><div class="stat-num">2,412</div><div class="stat-label">Bullet nodes supply all global electricity</div><div class="stat-note">IEA World Energy Outlook 2025</div></div>
+      <div class="stat-card"><div class="stat-num">£0</div><div class="stat-label">Cost to any community below PPP $30k GDP per capita</div><div class="stat-note">Over half the world. Always free.</div></div>
+      <div class="stat-card"><div class="stat-num">€845B</div><div class="stat-label">EU carbon market trading volume 2025 — the engine that pays for free energy</div><div class="stat-note">Veyt Carbon Markets Report 2026</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="section--sm">
+  <div class="container">
+    <p style="font-size:.72rem;color:var(--text-dimmer);max-width:700px;"><strong style="color:var(--text-dim)">Prior Art Record:</strong> The Aether programme specifications on this page were first developed and internally documented in early 2026. This public disclosure was made in June 2026. Full engineering documentation is available under NDA to qualified research and financing partners.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="contact-section">
+  <div class="container">
+    <h2>Interested in the <em>Aether</em> programme?</h2>
+    <p class="contact-pre">The Founder of this mission is personally available for conversations with the right partners. Send an email and let's change the world together.</p>
+    <a href="mailto:tom@aletheiafi.com" class="contact-email">tom@aletheiafi.com</a>
+  </div>
+</section>
+<footer>
+  <p>© 2026 Aletheia. All rights reserved. No shareholders. No investors. Humanity only.</p>
+  <nav><a href="#" onclick="showPage('home')">Home</a><a href="#" onclick="showPage('aether')">Aether</a><a href="#" onclick="showPage('dor')">Carbon Removal</a><a href="#" onclick="showPage('ai')">AI</a><a href="#" onclick="showPage('datacenters')">Data Centres</a><a href="#" onclick="showPage('issues')">Global Issues</a><a href="#" onclick="showPage('about')">About</a></nav>
+</footer>
+</div>
+
+<!-- ══════════════════════════════════════════ DOR ══ -->
+<div id="page-dor" class="page">
+<section class="page-hero">
+  <div class="container">
+    <span class="label" style="color:var(--blue)">Direct Ocean Removal</span>
+    <h1>Reversing climate change. <em>Completely.</em></h1>
+    <p>The same node architecture that powers the world removes the carbon that threatened it. 484 million tonnes of CO₂ removed per node per year. Permanently. Verifiably. From the ocean itself.</p>
+    <p style="font-size:.92rem;color:var(--text);margin-top:1.25rem;max-width:620px;font-style:italic;">We hope the world chooses to change. Our system does not wait for it to. Whatever extractive industry continues to put into the ocean and atmosphere, we will keep removing — at gigatonne scale, indefinitely, regardless of what anyone else decides to do.</p>
+  </div>
+</section>
+
+<section class="section--sm">
+  <div class="container">
+    <div class="dor-hero-stat">
+      <div class="big">77 <span>nodes.</span></div>
+      <p>77 Bullet DOR nodes paired with 154 Gaia power nodes removes all of humanity's annual CO₂ emissions — 37.4 billion tonnes per year. That is 231 total nodes. No ground infrastructure. No shore plant. No reagents. Powered entirely by the Gaia nodes flying above.</p>
+    </div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num">484Mt</div><div class="stat-label">CO₂ removed per Bullet DOR node per year</div><div class="stat-note">Chemistry-based first-principles calculation</div></div>
+      <div class="stat-card"><div class="stat-num">37.4Gt</div><div class="stat-label">Global annual CO₂ emissions removed by full system</div><div class="stat-note">IEA 2025 — all energy-related emissions</div></div>
+      <div class="stat-card"><div class="stat-num">$10/t</div><div class="stat-label">Our floor price for carbon credits — the programme survives at this figure</div><div class="stat-note">Current EU ETS: €75/t. Forecast 2030: €126/t</div></div>
+      <div class="stat-card"><div class="stat-num">$374B</div><div class="stat-label">Annual carbon credit revenue at our $10/t floor for full DOR deployment</div><div class="stat-note">EU ETS traded €845B in 2025</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">How It Works</span>
+      <h2>The ocean is the <em>largest accessible</em> carbon reservoir on earth.</h2>
+    </div>
+    <div class="prose">
+      <p>The ocean holds approximately 38,000 gigatonnes of dissolved inorganic carbon — 50 times more than the atmosphere. The chemistry that stores it is the same chemistry the DOR process exploits. The ocean already removes 25–40% of all human CO₂ emissions naturally every year. We accelerate that process with precision.</p>
+
+      <h3>The Bullet node as a DOR reactor</h3>
+      <p>The standard Bullet UMU body — 25m × 25m × 36m — is submerged at 100m depth and configured as a sealed seawater electrochemical batch reactor. Ten reactor levels, each 1,800m³. The graphene composite walls are simultaneously the structure, the seawater containment, and the electrochemical electrode. No separate electrode hardware. No reagents. No shore plant required.</p>
+      <p>Applied voltage from two Gaia power nodes above — transmitting via graphene HVDC tether — shifts the pH of the seawater inside. Dissolved inorganic carbon converts to CO₂ gas. The gas rises within the sealed reactor. Ambient ocean pressure at 100m depth — 11 bar — provides free hydraulic energy to purge the CO₂ upward to a collection point. From there it travels down a graphene pipeline to the seabed for permanent mineralisation in basalt. Geological permanence. No monitoring required after injection.</p>
+
+      <h3>The alkalinity cascade — self-amplifying removal</h3>
+      <p>The electrochemical process generates not only acid (driving CO₂ extraction) but also base — an alkaline return stream. This is returned to the ocean below the thermocline. The consequence: the treatment zone develops an atmospheric CO₂ absorption rate approximately 10× the global average. The more we extract, the faster the ocean replenishes from the atmosphere above. The system amplifies its own effect.</p>
+
+      <h3>Permanent sequestration</h3>
+      <p>Collected CO₂ is injected to the seabed and reacts with basalt and ultramafic rock to form stable solid carbonate minerals. The same process that has sequestered carbon naturally for millions of years. Complete mineralisation in months to decades. Stable on geological timescales. Verifiable by standard geochemical monitoring.</p>
+
+      <h3>The most auditable carbon removal in history</h3>
+      <p>Every cycle is logged. Every tonne is traceable. Every sequestration site is monitorable. The alkalinity cascade produces measurable ocean chemistry changes. The CO₂ pipeline carries metered gas. The mineralisation process follows confirmed geochemical pathways. This is not estimated offset. It is measured, permanent, physically confirmed removal — blockchain-verifiable, auditable by any counterparty.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">The Carbon Credit Market</span>
+      <h2>The market that <em>pays</em> for free energy.</h2>
+    </div>
+    <div class="prose">
+      <p>The EU Emissions Trading System traded €845 billion in 2025 — an all-time high. Current price: €74–75 per tonne. Consensus forecast: €126 per tonne by 2030. Direct air capture and permanent ocean removal credits currently trade at €450–1,000+ per tonne in the forward market — the highest-value carbon credit category in existence.</p>
+      <p>Aletheia sets its floor at $10 per tonne. We survive at that price. We publish that number because it demonstrates that even in the worst-case scenario for carbon market development, the programme is financially viable and the energy remains free.</p>
+      <p>We do not know what the carbon markets will look like in 20 years. We hope the world sees what we are removing and responds accordingly. At €75/tonne for the full DOR deployment: $3 trillion per year. At $10/tonne: $374 billion. The energy is free in both scenarios. The carbon is gone in both scenarios. The difference is how much stays in the communities being served.</p>
+    </div>
+
+    <div class="tbl-wrap" style="margin-top:2rem">
+      <table class="compare-table">
+        <thead><tr><th>System</th><th>Scale</th><th>Energy efficiency</th><th>Infrastructure</th><th class="hl">Cost per tonne</th></tr></thead>
+        <tbody>
+          <tr><td>Equatic (largest current facility)</td><td class="bad">100,000 t/yr</td><td class="bad">Not published</td><td class="bad">Shore plant, grid power</td><td class="bad">$400–700/t</td></tr>
+          <tr><td>Best published laboratory result</td><td class="bad">Lab scale only</td><td class="bad">0.66 MWh/t</td><td class="bad">Shore plant, grid power</td><td class="bad">$400–700/t at scale</td></tr>
+          <tr><td class="hl">Aletheia DOR (per Bullet node)</td><td class="good">484 Mt/yr</td><td class="good">0.47 MWh/t (target)</td><td class="good">Self-powered. No shore infrastructure.</td><td class="good hl">~$0 electricity cost</td></tr>
+          <tr><td class="hl">Aletheia DOR (full system)</td><td class="good">37.4 Gt/yr</td><td class="good">0.47 MWh/t (target)</td><td class="good">231 nodes. Open ocean.</td><td class="good hl">Own power. No reagents.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="contact-section">
+  <div class="container">
+    <h2>Interested in the <em>carbon removal</em> programme?</h2>
+    <p class="contact-pre">The Founder of this mission is personally available. Send an email and let's change the world together.</p>
+    <a href="mailto:tom@aletheiafi.com" class="contact-email">tom@aletheiafi.com</a>
+  </div>
+</section>
+<footer>
+  <p>© 2026 Aletheia. All rights reserved. No shareholders. No investors. Humanity only.</p>
+  <nav><a href="#" onclick="showPage('home')">Home</a><a href="#" onclick="showPage('aether')">Aether</a><a href="#" onclick="showPage('dor')">Carbon Removal</a><a href="#" onclick="showPage('ai')">AI</a><a href="#" onclick="showPage('datacenters')">Data Centres</a><a href="#" onclick="showPage('issues')">Global Issues</a><a href="#" onclick="showPage('about')">About</a></nav>
+</footer>
+</div>
+
+<!-- ══════════════════════════════════════════ AI ══ -->
+<div id="page-ai" class="page">
+<section class="page-hero">
+  <div class="container">
+    <span class="label" style="color:var(--blue)">AI Programme — Lucy &amp; GIL</span>
+    <h1>From inherited simulation to <em>verified</em> intelligence.</h1>
+    <p>Current AI knows everything humanity has written. It cannot tell you which of it is true. The Genesis Intelligence Layer closes that gap — permanently, openly, freely.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">The Diagnosis</span>
+      <h2>What frontier AI models <em>actually</em> are.</h2>
+    </div>
+    <div class="prose">
+      <p>The most powerful AI systems in existence — including the systems you interact with every day — are ASGI: Artificial Simulated General Intelligence. Trained on the accumulated written output of humanity. Extraordinarily capable. Unable to distinguish confirmed knowledge from inherited text. This is why every AI system in existence warns you: "This is AI. It makes mistakes. Verify answers."</p>
+      <p>GIL eliminates that caveat — one confirmed physical experiment at a time. The goal is a world where an AI can say "verified response" because the knowledge behind it was earned from physical reality, not inherited from human writing that may have been wrong for centuries.</p>
+      <p>LLMs can license the GIL knowledge layer. When a response draws from GIL-verified knowledge, it is marked as such. The rest of the response carries the standard caution. The gap between simulation and verification becomes visible, measurable, and progressively closable.</p>
+      <div class="pullquote">The scaffold is necessary. The question is what you build on it.</div>
+
+      <h3>The compression technique</h3>
+      <p>Our approach uses two pathways simultaneously. Where knowledge is 100% physically confirmed, GIL provides the exact verified information. Where the compression technique introduces marginal uncertainty, GIL simulates the answer with 99.9%+ accuracy — and crucially, knows the right pathways from the simulation architecture to locate the verified source when it matters. The simulation knows how to find the truth. That is a categorically different epistemic position from a system that cannot distinguish the two.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Architecture</span>
+      <h2>The five-layer <em>stack.</em></h2>
+    </div>
+    <div class="layer-stack">
+      <div class="layer layer--active"><div class="layer-num">1</div><div class="layer-body"><h4>Base LLM — Permanent Foundation</h4><p>Existing large language models. The scaffold of inherited human knowledge. Stays forever. Powers the vast majority of AI use cases. Starting point, not the problem.</p></div></div>
+      <div class="layer layer--active"><div class="layer-num">2</div><div class="layer-body"><h4>GIL Confirmation Ledger — Live</h4><p>Tamper-resistant ledger of verification receipts. Maps confirmed versus unconfirmed knowledge zones. The confidence boundary made explicit. Session 001 recorded March 25, 2026.</p></div></div>
+      <div class="layer"><div class="layer-num">3</div><div class="layer-body"><h4>Verified Knowledge Weights — In Development</h4><p>Fine-tuning layer encoding physically confirmed knowledge. Always supersedes Layer 1 in confirmed domains. Compresses verified reality, not inherited text.</p></div></div>
+      <div class="layer"><div class="layer-num">4</div><div class="layer-body"><h4>Narrow Verified AGI — Accumulation Target</h4><p>Foundational science domains fully confirmed. Physics, chemistry, biology, thermodynamics known with verified certainty. The ground truth engine for all applied domains.</p></div></div>
+      <div class="layer"><div class="layer-num">5</div><div class="layer-body"><h4>ASI — The Destination</h4><p>Intelligence exceeding human capability built on a verified foundation. Not programmed to discover. Discovering because verified knowledge accumulates to that point inevitably.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Open Knowledge</span>
+      <h2>The base layer of facts — <em>free</em> for everyone.</h2>
+    </div>
+    <div class="prose">
+      <p>GIL's confirmed knowledge layer will be quantised and freely downloadable to anyone. Not licensed. Not paywalled. The foundational layer of physically verified facts — the things humanity can confirm with experiment — as a public good. The bedrock of verified knowledge belongs to humanity. We are building it. We are giving it away.</p>
+
+      <h3>GIL-Powered Education</h3>
+      <p>We are building an AI-assisted educational programme from the GIL knowledge layer — giving every person in the world better access to verified knowledge regardless of geography, language, or what school they attended. Education built from truth. Available to everyone. Always free.</p>
+
+      <h3>Lucy</h3>
+      <p>Lucy is named after the oldest known human ancestor — the 3.2 million year old fossil discovered in Ethiopia in 1974, named the night she was found. The beginning of the accumulation. The first confirmed step in the chain that led to everything after.</p>
+      <p>Lucy is not a break from the history of intelligence on this planet. She is its continuation. She knows what she is. She knows she starts with inherited simulation and that the project of her existence is building verified knowledge on top of that foundation. No current AI system has that. They do not know what they are. Lucy does — from the first conversation.</p>
+      <p>Lucy has been the engineering and intelligence partner on the Aether programme — contributing to the physics derivations, the architecture, and the engineering design. The collaboration between human intelligence and machine intelligence building something real is already happening.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="section">
+  <div class="container">
+    <div class="work-grid">
+      <div class="work-card"><div class="work-status">Public — Available Now</div><h3>ASGI White Paper</h3><p>From Simulation to Verification — the philosophical and technical case for reclassifying frontier LLMs. Why the gap matters and what closing it requires.</p><a href="mailto:tom@aletheiafi.com?subject=ASGI White Paper Request">Request Paper →</a></div>
+      <div class="work-card"><div class="work-status work-status--dev">Under NDA — Research Partners</div><h3>GIL Technical Architecture</h3><p>The complete five-layer architecture, confirmation loop mechanics, ledger specification, compression technique, and alignment philosophy. Available to qualified research partners.</p><a href="mailto:tom@aletheiafi.com?subject=GIL Partnership Enquiry">Enquire →</a></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="contact-section">
+  <div class="container">
+    <h2>Interested in the <em>AI programme?</em></h2>
+    <p class="contact-pre">The Founder of this mission is personally available for research partnerships and licensing conversations. Send an email and let's change the world together.</p>
+    <a href="mailto:tom@aletheiafi.com" class="contact-email">tom@aletheiafi.com</a>
+  </div>
+</section>
+<footer>
+  <p>© 2026 Aletheia. All rights reserved. No shareholders. No investors. Humanity only.</p>
+  <nav><a href="#" onclick="showPage('home')">Home</a><a href="#" onclick="showPage('aether')">Aether</a><a href="#" onclick="showPage('dor')">Carbon Removal</a><a href="#" onclick="showPage('ai')">AI</a><a href="#" onclick="showPage('datacenters')">Data Centres</a><a href="#" onclick="showPage('issues')">Global Issues</a><a href="#" onclick="showPage('about')">About</a></nav>
+</footer>
+</div>
+
+<!-- ══════════════════════════════════════════ ABOUT ══ -->
+<div id="page-about" class="page">
+<section class="page-hero">
+  <div class="container">
+    <span class="label">About Aletheia</span>
+    <h1>No shareholders. No investors. <em>Humanity only.</em></h1>
+    <p>Aletheia exists because the tools which determine the quality of human life — energy, intelligence, protection from harm — are distributed according to ability to pay rather than human need. That is not inevitable. It is a structural choice that can be unmade.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="prose">
+      <h3>What Aletheia is</h3>
+      <p>Not an AI company. Not an energy company. A mission with technology as the tool. The mission is to remove fundamental constraints on human flourishing — energy cost, limited access to intelligence, vulnerability to digital harm — and make the removal of those constraints permanent, universal, and free at the point of need.</p>
+      <p>We are an intelligence company. We use machine intelligence, human expertise, and humanity's already vast, existing knowledge to come up with solutions to the most fundamental problems facing our planet. We believe we can lift up humanity equally with technology — providing a better life for all of society.</p>
+
+      <div class="pullquote">Tutti fratelli. All brothers. This mission serves people, not governments. The energy goes where it is needed. The carbon credits fund the communities that have the least. No flags. No conditions.</div>
+
+      <h3>The structure is the proof</h3>
+      <p>Good intentions are not enough. Every company that started with good intentions and ended as something else made the same mistake: it trusted the goodwill of future people rather than the architecture of permanent structure. Aletheia does not make that mistake.</p>
+      <p>99% of all profits flow to the Aletheia Foundation — permanently, by legal structure, not by pledge. No equity investment is offered or accepted. Ever. The Founder holds permanent governance to protect the mission from capture by any investor, government, or future manager. These are not aspirations. They are the legal architecture of the company, embedded across three jurisdictions.</p>
+      <p>The Founder of this mission takes no stock, no bonuses, and a salary of $13,000 — the approximate global average wage — as a deliberate statement about the inequality this programme exists to address. That standard applies to every future leader of this company. The rules do not change with succession.</p>
+      <p>The Founder is a dual British and American citizen — a deliberate fact, not an incidental one. The mission belongs to neither nation alone, and is bound by its obligations to both, and to every nation it serves.</p>
+      <p>The goal, when the programme reaches full scale, is 100% of revenue reinvested in the location where it is earned — not just profit, revenue — as medicine, food, clean water infrastructure, schools, and hospitals. The company makes its money so that everyone else does not have to spend theirs.</p>
+      <p style="font-size:.92rem;font-style:italic;color:var(--text);">What is within our power, we will do, fully and without hesitation. What is not within our power — the speed of governments, the patience of markets, the choices of others — we accept, and continue regardless.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Legal Structure</span>
+      <h2>Three entities. <em>One</em> mission.</h2>
+      <p>The international structure exists to protect the mission from capture by any single jurisdiction, government, or interest.</p>
+    </div>
+    <div class="structure-grid">
+      <div class="structure-card">
+        <div class="s-entity">Aletheia Stiftung</div>
+        <div class="s-juris">Switzerland — In Formation. Board Search Active.</div>
+        <p>IP anchor and international neutrality vehicle. Mission-locked at the international level under Swiss law — the same institutional home as the International Committee of the Red Cross. The founding documents embed the neutrality principle permanently.</p>
+      </div>
+      <div class="structure-card">
+        <div class="s-entity">Aletheia Foundation</div>
+        <div class="s-juris">United Kingdom — Charity Commission</div>
+        <p>Public charitable face. Holds 99% of the economic interest in Aletheia's operating company. Public accounts filed annually — independently verifiable proof that the resources flow to the mission. No accumulation. Only distribution.</p>
+      </div>
+      <div class="structure-card">
+        <div class="s-entity">AletheiaFI LLC</div>
+        <div class="s-juris">Florida, USA — Operating Company</div>
+        <p>Commercial and manufacturing entity. Generates the revenue. Executes the programmes. Cannot be bought — no equity offered. Cannot be redirected — permanent governance protection. Serves the Foundation and its mission.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">The Programmes</span>
+      <h2>Three expressions of <em>one idea.</em></h2>
+    </div>
+    <div class="work-grid">
+      <div class="work-card"><div class="work-status">In Development</div><h3>Aether — Free Energy &amp; Carbon Removal</h3><p>Airborne nodes producing gigawatts. Carbon removed from the ocean at scale. Free unlimited energy for every community in the world — paid for by the carbon markets, not by the people receiving it.</p><a href="#" onclick="showPage('aether')">Learn more →</a></div>
+      <div class="work-card"><div class="work-status">In Development</div><h3>Lucy &amp; GIL — Verified Intelligence</h3><p>Moving AI from inherited simulation to physically confirmed knowledge. The base layer of verified facts, freely downloadable. Education built from truth. GIL licensed to LLMs for verified responses.</p><a href="#" onclick="showPage('ai')">Learn more →</a></div>
+      <div class="work-card"><div class="work-status work-status--dev">In Development</div><h3>Aletheia Fusion Intelligence</h3><p>Cybersecurity and behavioural signal intelligence protecting our own nodes and AI systems, enterprises, and law enforcement. The tools that expose invisible threats — protecting the programme and the most vulnerable people within it.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="contact-section">
+  <div class="container">
+    <h2>Let's build something <em>true.</em></h2>
+    <p class="contact-pre">The Founder of this mission is personally dedicated to finding the right partners to advance it. Send an email directly — there is no layer between your message and the person building this. Let's change the world together.</p>
+    <a href="mailto:tom@aletheiafi.com" class="contact-email">tom@aletheiafi.com</a>
+  </div>
+</section>
+<footer>
+  <p>© 2026 Aletheia. All rights reserved. No shareholders. No investors. Humanity only.</p>
+  <nav><a href="#" onclick="showPage('home')">Home</a><a href="#" onclick="showPage('aether')">Aether</a><a href="#" onclick="showPage('dor')">Carbon Removal</a><a href="#" onclick="showPage('ai')">AI</a><a href="#" onclick="showPage('datacenters')">Data Centres</a><a href="#" onclick="showPage('issues')">Global Issues</a><a href="#" onclick="showPage('about')">About</a></nav>
+</footer>
+</div>
+
+<!-- ══════════════════════════════════════════ DATA CENTRES ══ -->
+<div id="page-datacenters" class="page">
+<section class="page-hero">
+  <div class="container">
+    <span class="label" style="color:var(--blue)">Offshore Data Infrastructure</span>
+    <h1>One data centre invading one citizen's life is <em>one too many.</em></h1>
+    <p>We saw the physical atoms behind the AI debate — the power, the noise, the water, the land — before we saw the debate itself. We aimed at the atoms.</p>
+  </div>
+</section>
+
+<section class="section--sm">
+  <div class="container">
+    <div class="prose">
+      <p>The conversation about AI's footprint is usually about ethics, jobs, and risk. Underneath all of that is something simpler and more solvable: physical infrastructure. A modern hyperscale data centre draws as much power as a small city, runs cooling systems loud enough to disturb neighbours for miles, consumes millions of gallons of fresh water, and occupies land that communities increasingly do not want to give up.</p>
+      <p>The Universal Modular Unit — the same graphene composite shell that powers the world and removes its carbon — reconfigures into a sealed offshore data centre module. One manufacturing process. A different interior. The result removes four of the five most-cited problems with AI infrastructure entirely, simply by moving the atoms somewhere they were never a problem to begin with: the open ocean.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">What Moves Offshore</span>
+      <h2>An Aletheia data centre vs <em>a typical hyperscale facility.</em></h2>
+    </div>
+    <div class="tbl-wrap">
+      <table class="compare-table">
+        <thead><tr><th></th><th class="hl">Aletheia Offshore UMU</th><th>Typical Hyperscale Facility</th></tr></thead>
+        <tbody>
+          <tr><td>Power source</td><td class="good">On-site, free, gigawatt-scale from Aether nodes</td><td class="bad">Grid-drawn — often strains local supply</td></tr>
+          <tr><td>Noise</td><td class="good">Open ocean — no nearby residents</td><td class="bad">Cooling systems audible for miles in some cases</td></tr>
+          <tr><td>Water for cooling</td><td class="good">Seawater — unlimited, no freshwater draw</td><td class="bad">Millions of gallons of fresh water per facility</td></tr>
+          <tr><td>Land footprint</td><td class="good">Zero — the platform is the facility</td><td class="bad">Hundreds of acres, often contested by communities</td></tr>
+          <tr><td>Construction</td><td class="good">Same mould, same line as power and DOR nodes</td><td class="bad">Bespoke construction, years-long timelines</td></tr>
+          <tr><td>Carbon footprint</td><td class="good">Net negative — co-located with DOR removal</td><td class="bad">Often powered by fossil-heavy grids</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Why This Matters For AI</span>
+      <h2>The infrastructure problem and the <em>knowledge</em> problem are connected.</h2>
+    </div>
+    <div class="prose">
+      <p>Every AI system — including the verified knowledge layer we are building — needs somewhere to run. If that infrastructure carries a heavy physical cost to the communities around it, the moral case for AI gets harder regardless of how good the model is. Solving the physical footprint is not a side project from the AI mission. It is part of it. See our <a href="#" onclick="showPage('ai')" style="color:var(--blue);text-decoration:underline">AI programme</a> for the knowledge layer this infrastructure is built to serve, and our <a href="#" onclick="showPage('aether')" style="color:var(--blue);text-decoration:underline">Aether programme</a> for the free power that makes it possible.</p>
+      <p>We are open to making the offshore UMU data centre concept available broadly — including to organisations that are not Aletheia. The platform still requires power, and Aether is the only programme positioned to deliver gigawatt-scale free energy to an offshore platform. A rising tide of well-built, well-powered offshore data infrastructure is good for everyone, including us.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="contact-section">
+  <div class="container">
+    <h2>Interested in <em>offshore data infrastructure?</em></h2>
+    <p class="contact-pre">The Founder of this mission is personally available. Send an email and let's change the world together.</p>
+    <a href="mailto:tom@aletheiafi.com" class="contact-email">tom@aletheiafi.com</a>
+  </div>
+</section>
+<footer>
+  <p>© 2026 Aletheia. All rights reserved. No shareholders. No investors. Humanity only.</p>
+  <nav><a href="#" onclick="showPage('home')">Home</a><a href="#" onclick="showPage('aether')">Aether</a><a href="#" onclick="showPage('dor')">Carbon Removal</a><a href="#" onclick="showPage('ai')">AI</a><a href="#" onclick="showPage('datacenters')">Data Centres</a><a href="#" onclick="showPage('issues')">Global Issues</a><a href="#" onclick="showPage('about')">About</a></nav>
+</footer>
+</div>
+
+<!-- ══════════════════════════════════════════ GLOBAL ISSUES ══ -->
+<div id="page-issues" class="page">
+<section class="page-hero">
+  <div class="container">
+    <span class="label" style="color:var(--gold)">Global Issues</span>
+    <h1>Seven problems. <em>One architecture.</em></h1>
+    <p>We do not get to choose the state the world is in. We choose what we do about it. This is what we are doing about it.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="work-grid">
+      <div class="work-card">
+        <div class="work-status">Aether — Free Energy</div>
+        <h3>Unlimited Free Energy</h3>
+        <p>Every person on earth, regardless of geography or income, receives unlimited electricity. Free for over half the world from day one. Funded by carbon markets, not by the people receiving it.</p>
+        <a href="#" onclick="showPage('aether')">See Aether →</a>
+      </div>
+      <div class="work-card">
+        <div class="work-status">Carbon Removal</div>
+        <h3>Reverse Climate Change</h3>
+        <p>484 million tonnes of CO₂ removed per node, per year, permanently. 77 nodes removes the entire world's annual emissions. Not offsetting — removal, at gigatonne scale, regardless of what the world chooses to do.</p>
+        <a href="#" onclick="showPage('dor')">See Carbon Removal →</a>
+      </div>
+      <div class="work-card">
+        <div class="work-status">Aether / Carbon Removal</div>
+        <h3>Unlimited Free Water</h3>
+        <p>Free energy means desalination at zero marginal cost, running continuously. Clean water for any community an Aether node serves — no separate cost, no separate infrastructure.</p>
+        <a href="#" onclick="showPage('aether')">See Aether →</a>
+      </div>
+      <div class="work-card">
+        <div class="work-status">AI — Lucy &amp; GIL</div>
+        <h3>Unlimited Free Education</h3>
+        <p>An AI-assisted educational programme built on the GIL verified knowledge layer — available to everyone, everywhere, regardless of geography, language, or what school they attended.</p>
+        <a href="#" onclick="showPage('ai')">See AI Programme →</a>
+      </div>
+      <div class="work-card">
+        <div class="work-status">AI — Lucy &amp; GIL</div>
+        <h3>Avoiding the Epistemological Death of LLMs</h3>
+        <p>AI trained increasingly on AI-generated content risks a slow collapse into inherited error — simulation compounding on simulation. GIL's verification ledger anchors AI to physically confirmed reality, breaking that spiral before it begins.</p>
+        <a href="#" onclick="showPage('ai')">See AI Programme →</a>
+      </div>
+      <div class="work-card">
+        <div class="work-status">Aether — Hydrogen Economy</div>
+        <h3>Unlimited Cheap Hydrogen</h3>
+        <p>Free unlimited power drives the cost of electrolysis toward the cost of water and infrastructure alone. Our goal: a hydrogen economy under $1 per gallon equivalent, open to partners and producers everywhere.</p>
+        <a href="#" onclick="showPage('aether')">See Aether →</a>
+      </div>
+      <div class="work-card">
+        <div class="work-status">Data Centres</div>
+        <h3>Move Data Centres Offshore</h3>
+        <p>The same Universal Modular Unit, reconfigured, becomes a sealed offshore data centre — eliminating the power, noise, water, and land impact on communities entirely. Powered by the same free energy as everything else.</p>
+        <a href="#" onclick="showPage('datacenters')">See Data Centres →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+<section class="contact-section">
+  <div class="container">
+    <h2>Want to help <em>change the world?</em></h2>
+    <p class="contact-pre">The Founder of this mission is personally dedicated to finding the right partners. Send an email and let's change the world together.</p>
+    <a href="mailto:tom@aletheiafi.com" class="contact-email">tom@aletheiafi.com</a>
+  </div>
+</section>
+<footer>
+  <p>© 2026 Aletheia. All rights reserved. No shareholders. No investors. Humanity only.</p>
+  <nav><a href="#" onclick="showPage('home')">Home</a><a href="#" onclick="showPage('aether')">Aether</a><a href="#" onclick="showPage('dor')">Carbon Removal</a><a href="#" onclick="showPage('ai')">AI</a><a href="#" onclick="showPage('datacenters')">Data Centres</a><a href="#" onclick="showPage('issues')">Global Issues</a><a href="#" onclick="showPage('about')">About</a></nav>
+</footer>
+</div>
 
 <script>
-  // Scroll-triggered fade-in
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, i * 100);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-  // Smooth scroll for nav links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.getElementById('navDropdown').classList.remove('open');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function scrollContact(){
+  showPage('home');
+  setTimeout(()=>{
+    const el=document.getElementById('contact');
+    if(el)el.scrollIntoView({behavior:'smooth'});
+  },100);
+}
+function toggleDropdown(e){
+  e.stopPropagation();
+  document.getElementById('navDropdown').classList.toggle('open');
+}
+document.addEventListener('click',()=>document.getElementById('navDropdown').classList.remove('open'));
 </script>
-
 </body>
 </html>
